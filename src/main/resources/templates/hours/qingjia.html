@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>查找工时</title>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<!--${pageContext.request.queryString}-->
+<!--<span th:text="${pageContext.request.queryString}"></span>-->
+<!--<span th:text="${pageContext.request.remotUser}"></span>-->
+<!--<span th:text="${pageContext.request.remotAddr}"></span>-->
+<!--<span th:text="${pageContext.request.remotAddr}"></span>-->
+<!--<span th:text="${pageContext.request.contexPath}"></span>-->
+<!--<span th:text="${param.weekDay}"></span>-->
+<!--${pageContext.request.requestURL}-->
+<!--${paramValues.name}-->
+<div align="center">
+    <span th:text="${name}"/>你好，如果您明天有事需要请假，一定提前向线上班长和驻厂管理申请告知，
+    请点下方请假按钮确定。<br>
+    <h3 style="color: red">注意：请假一定要提前一天，不请假不上班的一律按旷工扣一天工资处理!!!</h3>
+    <form name="fm" action="/hours/updateQingjia">
+        <input type="hidden" name="workerId" th:value="${workerId}">
+        <input type="hidden" name="qingjia" value="1">
+        <input type="submit"   value="我明天要请假"><br>
+    </form>
+
+
+    <form action="/hours/updateJiezi">
+          <input type="hidden" name="workerId" th:value="${workerId}">
+        每周上满7天班 周末下班可预支500元，5-7天可预支300<br>
+        请根据自己上班情况选择借支<br>
+
+        今天是 <span th:text="${weekDay}"></span>,只有周末才可以借支<br>
+        新入职的可借100-200，
+        <select name="jiezi">
+            <option selected="selected">下拉选择金额</option>
+            <option value="100">支100</option>
+            <option value="200">支200</option>
+        </select>
+        <input type="submit" value="我已经选好确定借支"><br>
+
+        <div align="center" th:if=" ${weekDay} eq '周末'">
+            同事们辛苦了，美好的周末又来了<br>
+            每周上满7天班 周末下班可预支500元，5天可预支300<br>
+            请根据自己上班情况选择借支<br>
+            <select name="jiezi">
+                <option selected="selected" value="300">支300</option>
+                <option value="500">支500</option>
+            </select>
+            <input type="submit" value="我已经选好确定借支"><br>
+        </div>
+        如果您想查看自己上班工时，借支，请点下方链接
+        <a th:href="@{/hours/selectByWorker(workerId = ${workerId}) }">查看工时</a>
+    </form>
+</div>
+</body>
+</html>

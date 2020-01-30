@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂列表</title>
+</head>
+<body>
+<table border="1px" align="center">
+    <tr>
+    <th>厂名</th>
+    <th>地址</th>
+    <th>驻厂</th>
+    <th>电话</th>
+    <th>部们</th>
+    <th>修改</th>
+    <th>删除</th>
+    </tr>
+
+    <tr th:each="factory:${factoryList}" bgcolor="#a9a9a9">
+        <td th:text="${factory.name}"/>
+        <td th:text="${factory.location}"/>
+        <td th:text="${factory.leader}"/>
+        <td th:text="${factory.phone}"/>
+        <td th:text="${factory.departments}"/>
+        <td><a th:href="@{/factory/toModify(factoryId= ${factory.idfactory}) }">修改</a></td>
+        <td><a th:href="@{/factory/del(factoryId= ${factory.idfactory}) }">删除</a></td>
+    </tr>
+</table>
+</body>
+</html>

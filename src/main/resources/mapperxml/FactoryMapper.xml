@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fubang.limao.mapper.FactoryMapper">
+  <resultMap id="BaseResultMap" type="com.fubang.limao.domain.Factory">
+    <!--@mbg.generated-->
+    <!--@Table factory-->
+    <id column="idfactory" jdbcType="INTEGER" property="idfactory" />
+    <result column="factoryName" jdbcType="VARCHAR" property="name" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="leader" jdbcType="VARCHAR" property="leader" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <collection property="departments" ofType="com.fubang.limao.domain.Department">
+      <id column="iddepartment" jdbcType="INTEGER" property="iddepartment" />
+      <result column="departmentName" jdbcType="VARCHAR" property="name" />
+      <result column="coments" jdbcType="VARCHAR" property="coments" />
+      <result column="sumWoker" jdbcType="INTEGER" property="sumwoker" />
+      <result column="factoryId" jdbcType="VARCHAR" property="factoryid" />
+    </collection>
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    idfactory, `name`, `location`, leader, phone
+  </sql>
+  <select id="selectAll"   resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    f.*,d.*,d.name departmentName,f.name factoryName
+    from factory f
+
+    left outer join department d on f.idfactory = d.factoryId
+
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from factory
+    where idfactory = #{idfactory,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from factory
+    where idfactory = #{idfactory,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="idfactory" keyProperty="idfactory" parameterType="com.fubang.limao.domain.Factory" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into factory (`name`, `location`, leader, 
+      phone)
+    values (#{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="idfactory" keyProperty="idfactory" parameterType="com.fubang.limao.domain.Factory" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into factory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="leader != null">
+        leader,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null">
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fubang.limao.domain.Factory">
+    <!--@mbg.generated-->
+    update factory
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null">
+        leader = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idfactory = #{idfactory,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fubang.limao.domain.Factory">
+    <!--@mbg.generated-->
+    update factory
+    set `name` = #{name,jdbcType=VARCHAR},
+      `location` = #{location,jdbcType=VARCHAR},
+      leader = #{leader,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where idfactory = #{idfactory,jdbcType=INTEGER}
+  </update>
+</mapper>

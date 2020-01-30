@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>工时列表</title>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("select").change(function () {
+                $("form").submit();
+            })
+        })
+
+    </script>
+</head>
+<body>
+<!--<span th:text="${hoursList}"></span>-->
+
+<!--<h2 th:each="hours:${hoursList}" bgcolor="#a9a9a9">-->
+<!--    <span th:if="${hours.qingjia} eq '0'">开工</span>-->
+<!--    <span th:if="${hours.qingjia} eq '1'"> 请假</span>-->
+<!--    <h6 th:text="${hours.worker.name}"/>-->
+<!--</h2>-->
+<form action="/hours/selectByWorker">
+    <input type="hidden" name="workerId" th:value="${workerId}">
+    <select name="month">
+        <option  selected="selected">选择日期</option>
+        <option value="本月">只看本月</option>
+        <option value="上月">只看上月</option>
+    </select>
+</form>
+<div>本月工时为<span th:text="${gongshiPlus}"/>,本月借支为<span th:text="${jieziPlus}"/></div>
+<div  align="center" th:text="${error}"></div>
+<table border="1px" align="center">
+    <tr>
+        <th>员工姓名</th>
+        <th>日期</th>
+        <th>工时</th>
+        <th>请假</th>
+        <th>借支</th>
+    </tr>
+    <tr th:each="hours:${hoursList}" bgcolor="#a9a9a9">
+<!--    <td th:text="${#calendars.createTodayForTimeZone(SYSTEM)}"/>-->
+    <td th:text="${hours.worker.name}"/>
+
+<!--    <td th:text="${#calendars.format(hours.riqi,'yyyy-MM-dd HH:mm:ss')}"/>-->
+    <td th:text="${#calendars.format(hours.riqi,'yyyy-MM-dd')}"/>
+    <td th:text="${hours.gongshi}"/>
+    <td th:if="${hours.qingjia} eq '0'">上班</td>
+    <td bgcolor="#ff4500" th:if="${hours.qingjia} eq '1'">请假</td>
+    <td th:text="${hours.jiezi}"/>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>查找工时</title>
+</head>
+<body>
+<table border="1px" align="center">
+    <tr>
+    <th>员工姓名</th>
+    <th>日期</th>
+    <th>工时</th>
+    <th>电话</th>
+    <th>请假</th>
+    </tr>
+
+    <tr   bgcolor="#a9a9a9">
+        <td th:text="${hours.worker.name}"/>
+        <td th:text="${hours.riqi}"/>
+        <td th:text="${hours.gongshi}"/>
+        <td th:text="${hours.qingjia}"/>
+
+        <td><a href="/hours/modify?hoursId=${hours.idhours}">修改</a></td>
+        <td><a href="/hours/del?hoursId=${hours.idhours}">删除</a></td>
+    </tr>
+</table>
+</body>
+</html>

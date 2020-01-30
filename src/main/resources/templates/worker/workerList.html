@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂列表</title>
+</head>
+<body>
+<table border="1px" align="center">
+    <tr>
+    <th>姓名</th>
+    <th>年龄</th>
+    <th>身份证</th>
+    <th>电话</th>
+    <th>厂名</th>
+    <th>部们名</th>
+    <th>部们介绍</th>
+    <th>删除员工</th>
+    <th>修改员工</th>
+    <th>工时信息</th>
+    </tr>
+
+    <tr th:each="worker:${workerList}" bgcolor="#a9a9a9">
+        <td th:text="${worker.name}"/>
+        <td th:text="${worker.age}"/>
+        <td th:text="${worker.sfz}"/>
+        <td th:text="${worker.phone}"/>
+        <td th:text="${worker.department.factory.name}"/>
+        <td th:text="${worker.department.name}"/>
+        <td th:text="${worker.department.coments}"/>
+        <td th:text="${worker.hours}"/>
+
+        <td><a th:href="@{/worker/toModify(idworker = ${worker.idworker}) }">修改</a></td>
+        <td><a th:href="@{/worker/del(idworker = ${worker.idworker}) }">删除</a></td>
+    </tr>
+</table>
+  <a href="/worker/toAdd">返回添加员工</a>
+</body>
+</html>

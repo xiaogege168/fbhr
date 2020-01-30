@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fubang.limao.mapper.MangerMapper">
+  <resultMap id="BaseResultMap" type="com.fubang.limao.domain.Manger">
+    <!--@mbg.generated-->
+    <!--@Table manger-->
+    <id column="idmanger" jdbcType="INTEGER" property="idmanger" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    idmanger, `name`, phone
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from manger
+    where idmanger = #{idmanger,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from manger
+    where idmanger = #{idmanger,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fubang.limao.domain.Manger">
+    <!--@mbg.generated-->
+    insert into manger (idmanger, `name`, phone
+      )
+    values (#{idmanger,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fubang.limao.domain.Manger">
+    <!--@mbg.generated-->
+    insert into manger
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idmanger != null">
+        idmanger,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idmanger != null">
+        #{idmanger,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fubang.limao.domain.Manger">
+    <!--@mbg.generated-->
+    update manger
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idmanger = #{idmanger,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fubang.limao.domain.Manger">
+    <!--@mbg.generated-->
+    update manger
+    set `name` = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where idmanger = #{idmanger,jdbcType=INTEGER}
+  </update>
+</mapper>

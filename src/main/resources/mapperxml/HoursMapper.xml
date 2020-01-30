@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fubang.limao.mapper.HoursMapper">
+  <resultMap id="BaseResultMap" type="com.fubang.limao.domain.Hours">
+    <!--@mbg.generated-->
+    <!--@Table hours-->
+    <id column="idhours" jdbcType="INTEGER" property="idhours" />
+    <result column="workerId" jdbcType="INTEGER" property="workerId" />
+    <result column="riqi" jdbcType="TIMESTAMP" property="riqi" />
+    <result column="gongshi" jdbcType="INTEGER" property="gongshi" />
+    <result column="gongshiPlus" jdbcType="INTEGER" property="gongshiPlus" />
+    <result column="jiezi" jdbcType="INTEGER" property="jiezi" />
+    <result column="jieziPlus" jdbcType="INTEGER" property="jieziPlus" />
+    <result column="qingjia" jdbcType="VARCHAR" property="qingjia" />
+    <association property="worker" javaType="com.fubang.limao.domain.Worker">
+      <id column="idworker" jdbcType="INTEGER" property="idworker" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="age" jdbcType="INTEGER" property="age" />
+      <result column="sfz" jdbcType="VARCHAR" property="sfz" />
+      <result column="photo" jdbcType="VARCHAR" property="photo" />
+      <result column="departmentId" jdbcType="INTEGER" property="departmentId" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="managerId" jdbcType="INTEGER" property="managerid" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    idhours, workerId, riqi, gongshi, jiezi, qingjia
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from hours
+    where idhours = #{idhours,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByWorker" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+   select
+    h.*,w.*
+    from hours h ,worker w
+    where workerId = #{workerId,jdbcType=INTEGER}
+    and idworker = #{workerId,jdbcType=INTEGER}
+    <if test="param2=='本月'">
+    and month(riqi)=month(curdate())
+    </if>
+    <if test="param2=='上月'">
+    and month(riqi) =  month(curdate())-1
+    </if>
+  </select>
+  <select id="selectByWorkerA" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+   select
+    h.*,w.*,sum(jiezi) jieziPlus,sum(gongshi) gongshiPlus
+    from hours h ,worker w
+    where workerId = #{workerId,jdbcType=INTEGER}
+    and idworker = #{workerId,jdbcType=INTEGER}
+<!--    <if test="param2=='本月'">-->
+<!--    and month(riqi)=month(curdate())-->
+<!--    </if>-->
+<!--    <if test="param2=='上月'">-->
+<!--    and month(riqi) =  month(curdate())-1-->
+<!--    </if>-->
+  </select>
+
+  <select id="selectByWorkerToday"  resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+   select
+    h.*,w.*
+    from hours h ,worker w
+    where workerId = #{workerId,jdbcType=INTEGER}
+    and idworker = #{workerId,jdbcType=INTEGER}
+    and riqi=curdate()
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from hours
+    where idhours = #{idhours,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="idhours" keyProperty="idhours" parameterType="com.fubang.limao.domain.Hours" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hours (workerId, riqi, gongshi, 
+      qingjia)
+    values (#{workerId,jdbcType=INTEGER}, #{riqi,jdbcType=TIMESTAMP}, #{gongshi,jdbcType=INTEGER}, 
+      #{qingjia,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="idhours" keyProperty="idhours" parameterType="com.fubang.limao.domain.Hours" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into hours
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="workerId != null">
+        workerId,
+      </if>
+      <if test="riqi != null">
+        riqi,
+      </if>
+      <if test="gongshi != null">
+        gongshi,
+      </if>
+      <if test="qingjia != null">
+        qingjia,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="workerId != null">
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="riqi != null">
+        #{riqi,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gongshi != null">
+        #{gongshi,jdbcType=INTEGER},
+      </if>
+      <if test="qingjia != null">
+        #{qingjia,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fubang.limao.domain.Hours">
+    <!--@mbg.generated-->
+    update hours
+    <set>
+      <if test="workerId != null">
+        workerId = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="riqi != null">
+        riqi = #{riqi,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gongshi != null">
+        gongshi = #{gongshi,jdbcType=INTEGER},
+      </if>
+      <if test="qingjia != null">
+        qingjia = #{qingjia,jdbcType=INTEGER},
+      </if>
+    </set>
+    where workerId = #{workerId,jdbcType=INTEGER}
+      and date(riqi)=curdate()
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fubang.limao.domain.Hours">
+    <!--@mbg.generated-->
+    update hours
+    set workerId = #{workerId,jdbcType=INTEGER},
+      riqi = #{riqi,jdbcType=TIMESTAMP},
+      gongshi = #{gongshi,jdbcType=INTEGER},
+      qingjia = #{qingjia,jdbcType=INTEGER}
+    where idhours = #{idhours,jdbcType=INTEGER}
+  </update>
+  <update id="updateJiezi" parameterType="com.fubang.limao.domain.Hours">
+    update hours
+    set jiezi = #{jiezi,jdbcType=INTEGER},
+      jieziSata=#{jieziSata,jdbcType=VARCHAR}
+    where workerId = #{workerId,jdbcType=INTEGER} and
+     riqi=curdate()
+  </update>
+  <update id="updateQingjia" parameterType="com.fubang.limao.domain.Hours">
+    <!--@mbg.generated-->
+    update hours
+    set  qingjia = #{qingjia,jdbcType=INTEGER}
+    where workerId = #{workerId,jdbcType=INTEGER} and
+    riqi=adddate(curdate(),interval 1 day )
+  </update>
+</mapper>

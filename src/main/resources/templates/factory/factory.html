@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>查找工厂</title>
+</head>
+<body>
+<table border="1px" align="center">
+    <tr>
+    <th>厂名</th>
+    <th>地址</th>
+    <th>驻厂</th>
+    <th>电话</th>
+    <th>修改</th>
+    <th>删除</th>
+    </tr>
+
+    <tr   bgcolor="#a9a9a9">
+        <td th:text="${factory.name}"/>
+        <td th:text="${factory.location}"/>
+        <td th:text="${factory.leader}"/>
+        <td th:text="${factory.phone}"/>
+        <td><a href="/factory/modify?factoryId=${factory.idfactory}">修改</a></td>
+        <td><a href="/factory/del?factoryId=${factory.idfactory}">删除</a></td>
+    </tr>
+</table>
+</body>
+</html>

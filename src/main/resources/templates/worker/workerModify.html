@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>员工列表</title>
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#factoryName").mouseleave(function () {
+                // $(".iddepartment").remove();
+                $("#departmentName").empty();
+
+                var url="http://localhost:8080/factory/selectByFactory?factoryId="+$("#factoryName").val();
+                $.get(url, function (data, status) {
+                    var html="<option  selected='selected'>点击下拉选择</option>"
+                    $.each(data,function (n,value) {
+                        html+= "<option  value="+data[n].iddepartment+"> "+data[n].name+"</option>";
+                    })
+                    $("#departmentName").append(html);
+                })
+
+            })
+        });
+    </script>
+</head>
+<body>
+<div align="center">
+<form action="/worker/modify" >
+    <input type="hidden" name="idworker" th:value="${worker.idworker}">
+    <label for="name">姓名</label><input type="text" name="name" id="name" th:value="${worker.name}"><br>
+    <label for="age">年龄</label><input type="text" name="age" id="age" th:value="${worker.age}"><br>
+    <label for="sfz">身份证</label><input type="text" name="sfz" id="sfz"  th:value="${worker.sfz}"><br>
+    <label for="phone">电话</label><input type="text" name="phone" id="phone" th:value="${worker.phone}"><br>
+    <label for="photo">照片</label><input type="file" name="photo" id="photo" th:value="${worker.photo}"><br>
+    <label for="factoryName">厂名</label>
+    <select id="factoryName"  name="factoryName">
+        <option selected='selected'>点击下拉选择</option>
+        <option th:each="factory : ${factorys}" th:value="${factory.idfactory}" th:text="${factory.name}"> </option>
+
+    </select><br/>
+    <label for="departmentName">部门名</label>
+    <select id="departmentName" name='departmentId'>
+        <option   selected='selected'>点击下拉选择</option>
+    </select>
+
+
+    <input type="submit" value="确认修改"><br>
+</form>
+</div>
+</body>
+</html>

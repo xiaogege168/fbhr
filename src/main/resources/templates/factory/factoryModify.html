@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂列表</title>
+</head>
+<body>
+<div align="center">
+<form action="/factory/modify" >
+    <input type="hidden" name="idfactory" th:value="${factory.idfactory}">
+    <label for="name">厂名</label><input type="text" name="name" id="name" th:value="${factory.name}"><br>
+    <label for="location">地址</label><input type="text" name="location" id="location" th:value="${factory.location}"><br>
+    <label for="leader">驻厂</label><input type="text" name="leader" id="leader" th:value="${factory.leader}"><br>
+    <label for="phone">电话</label><input type="text" name="phone" id="phone" th:value="${factory.phone}"><br>
+    <input type="submit" value="确认修改"><br>
+</form>
+</div>
+</body>
+</html>
