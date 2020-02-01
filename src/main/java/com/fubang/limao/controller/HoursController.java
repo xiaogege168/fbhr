@@ -29,6 +29,7 @@ public class HoursController {
         ModelAndView mv= new ModelAndView("hours/hoursList");
         mv.getModel().put("hoursList",hoursMapper.selectByWorker(Integer.parseInt(workerId),month));
         mv.getModel().put("workerId", Integer.parseInt(workerId));
+        mv.getModel().put("worker", workerMapper.selectByPrimaryKey(Integer.parseInt(workerId)));
         return mv;
     }
     @RequestMapping("selectByWorkerA")

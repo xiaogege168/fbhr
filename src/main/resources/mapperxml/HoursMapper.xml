@@ -42,13 +42,16 @@
     from hours h ,worker w
     where workerId = #{workerId,jdbcType=INTEGER}
     and idworker = #{workerId,jdbcType=INTEGER}
+
     <if test="param2=='本月'">
     and month(riqi)=month(curdate())
     </if>
     <if test="param2=='上月'">
     and month(riqi) =  month(curdate())-1
     </if>
+      and (gongshi !=0 or jiezi !=0 or qingjia=1)
   </select>
+
   <select id="selectByWorkerA" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
    select

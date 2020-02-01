@@ -45,6 +45,7 @@ public class WorkerController {
             ModelAndView mv= new ModelAndView("hours/qingjia");
             mv.getModel().put("workerId",real.getIdworker());
             mv.getModel().put("name",real.getName());
+            mv.getModel().put("worker",real);
             mv.getModel().put("hoursList",hoursMapper.selectByWorker(real.getIdworker(),null));
 
             String[] weekDays = {"周末", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};

@@ -27,10 +27,11 @@
         <td th:text="${worker.department.factory.name}"/>
         <td th:text="${worker.department.name}"/>
         <td th:text="${worker.department.coments}"/>
-        <td th:text="${worker.hours}"/>
+<!--        <td th:text="${worker.hours}"/>-->
 
         <td><a th:href="@{/worker/toModify(idworker = ${worker.idworker}) }">修改</a></td>
         <td><a th:href="@{/worker/del(idworker = ${worker.idworker}) }">删除</a></td>
+        <td><a th:href="@{/hours/selectByWorker/(workerId = ${worker.idworker}) }">查看工時</a></td>
     </tr>
 </table>
   <a href="/worker/toAdd">返回添加员工</a>
